@@ -1,4 +1,4 @@
-﻿___TERMS_OF_SERVICE___
+___TERMS_OF_SERVICE___
 
 By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
@@ -70,7 +70,33 @@ ___TEMPLATE_PARAMETERS___
         "type": "NON_EMPTY"
       }
     ]
-  }
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "roundResult",
+    "displayName": "Round result",
+    "checkboxText": "Round",
+    "simpleValueType": true
+  },
+  {
+  "type": "TEXT",
+  "name": "decimals",
+  "displayName": "Decimal places",
+  "simpleValueType": true,
+  "help": "Number of decimal places to round to (e.g., 2)",
+  "valueValidators": [
+    {
+      "type": "NON_NEGATIVE_NUMBER"
+    }
+  ],
+  "visibilityConditions": [
+    {
+      "parameterName": "roundResult",
+      "predicateType": "EQUALS",
+      "value": true
+    }
+  ]
+}
 ]
 
 
