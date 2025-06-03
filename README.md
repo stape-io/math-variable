@@ -15,7 +15,7 @@ A custom variable template for the GTM Server container that performs basic math
 3. Enable "Round result" to round the output
 4. Specify the number of decimal places to round to (defaults to `2` if left empty)
 
-## 📦 Installation
+## Installation
 
 Import the `template.tpl` file into your GTM Server container under **Templates** → **New** → **Import**.
 
