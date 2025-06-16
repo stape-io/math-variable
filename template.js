@@ -1,31 +1,30 @@
 const makeNumber = require('makeNumber');
 const getType = require('getType');
+const Math = require('Math');
 
-const type = data.type;
-const roundResult = !!data.roundResult;
+/*==============================================================================
+==============================================================================*/
 
-let decimals = makeNumber(data.decimals);
-if (getType(decimals) !== 'number' || decimals !== decimals || decimals < 0) {
-  decimals = 2;
-}
+const isValidValue = (value) => {
+  const valueType = getType(value);
+  return valueType !== 'null' && valueType !== 'undefined' && value !== '';
+};
 
-if (data.number1.length <= 0 || data.number2.length <= 0) return undefined;
+/*==============================================================================
+==============================================================================*/
+
+if (!isValidValue(data.number1) || !isValidValue(data.number2)) return undefined;
 
 const number1 = makeNumber(data.number1);
 const number2 = makeNumber(data.number2);
 
-if (
-  getType(number1) !== 'number' ||
-  getType(number2) !== 'number' ||
-  number1 !== number1 ||
-  number2 !== number2
-) {
+if (getType(number1) !== 'number' || getType(number2) !== 'number' || number1 !== number1 || number2 !== number2) {
   return undefined;
 }
 
 let result;
 
-switch (type) {
+switch (data.type) {
   case 'multiply':
     result = number1 * number2;
     break;
@@ -42,17 +41,21 @@ switch (type) {
     return undefined;
 }
 
-if (typeof result === 'number' && roundResult) {
-  let factor = 1;
-  let i = 0;
-  while (i < decimals) {
-    factor = factor * 10;
-    i = i + 1;
+if (!!data.roundResult && getType(result) === 'number') {
+  let roundDecimalPlaces = data.roundDecimalPlaces;
+  if (getType(roundDecimalPlaces) !== 'number' || roundDecimalPlaces !== roundDecimalPlaces || roundDecimalPlaces < 0) {
+    roundDecimalPlaces = 2;
+  } else {
+    roundDecimalPlaces = makeNumber(roundDecimalPlaces);
   }
 
-  result = (result * factor + 0.5);
+  const factor = Math.pow(10, roundDecimalPlaces);
+  result = result * factor;
+  result = result >= 0 ? result + 0.5 : result - 0.5;
   result = result - (result % 1);
   result = result / factor;
+
+  return result;
 }
 
 return result;
