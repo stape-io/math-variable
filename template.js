@@ -1,8 +1,19 @@
 const makeNumber = require('makeNumber');
 const getType = require('getType');
-const type = data.type;
+const Math = require('Math');
 
-if (data.number1.length <= 0 || data.number2.length <= 0 ) return undefined;
+/*==============================================================================
+==============================================================================*/
+
+const isValidValue = (value) => {
+  const valueType = getType(value);
+  return valueType !== 'null' && valueType !== 'undefined' && value !== '';
+};
+
+/*==============================================================================
+==============================================================================*/
+
+if (!isValidValue(data.number1) || !isValidValue(data.number2)) return undefined;
 
 const number1 = makeNumber(data.number1);
 const number2 = makeNumber(data.number2);
@@ -11,15 +22,40 @@ if (getType(number1) !== 'number' || getType(number2) !== 'number' || number1 !=
   return undefined;
 }
 
-switch (type) {
+let result;
+
+switch (data.type) {
   case 'multiply':
-    return number1 * number2;
+    result = number1 * number2;
+    break;
   case 'divide':
-    return number2 !== 0 ? number1 / number2 : undefined;
+    result = number2 !== 0 ? number1 / number2 : undefined;
+    break;
   case 'add':
-    return number1 + number2;
+    result = number1 + number2;
+    break;
   case 'subtract':
-    return number1 - number2;
+    result = number1 - number2;
+    break;
   default:
     return undefined;
 }
+
+if (!!data.roundResult && getType(result) === 'number') {
+  let roundDecimalPlaces = data.roundDecimalPlaces;
+  if (getType(roundDecimalPlaces) !== 'number' || roundDecimalPlaces !== roundDecimalPlaces || roundDecimalPlaces < 0) {
+    roundDecimalPlaces = 2;
+  } else {
+    roundDecimalPlaces = makeNumber(roundDecimalPlaces);
+  }
+
+  const factor = Math.pow(10, roundDecimalPlaces);
+  result = result * factor;
+  result = result >= 0 ? result + 0.5 : result - 0.5;
+  result = result - (result % 1);
+  result = result / factor;
+
+  return result;
+}
+
+return result;

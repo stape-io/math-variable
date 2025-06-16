@@ -1,5 +1,7 @@
-homepage: "https://stape.io/"
+homepage: 'https://stape.io/'
 versions:
+  - sha: 59345580b8ce7ca731931c83600726b0cabfb2dd
+    changeNotes: Added support for rounding. Refactored the code. Added tests.
   - sha: 5047dd0f7a7a2f988d2ef1d54f8d08f967208764
     changeNotes: Fixed value check.
   - sha: cb3e443f4c71e2199a06f833831fa8e51a70bbd8
