@@ -42,11 +42,10 @@ switch (data.type) {
 }
 
 if (!!data.roundResult && getType(result) === 'number') {
-  let roundDecimalPlaces = data.roundDecimalPlaces;
+  let roundDecimalPlaces = makeNumber(data.roundDecimalPlaces);
+  
   if (getType(roundDecimalPlaces) !== 'number' || roundDecimalPlaces !== roundDecimalPlaces || roundDecimalPlaces < 0) {
     roundDecimalPlaces = 2;
-  } else {
-    roundDecimalPlaces = makeNumber(roundDecimalPlaces);
   }
 
   const factor = Math.pow(10, roundDecimalPlaces);
