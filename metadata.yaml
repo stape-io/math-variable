@@ -1,5 +1,8 @@
 homepage: 'https://stape.io/'
+documentation: 'https://github.com/stape-io/math-variable'
 versions:
+  - sha: 41fcf9036cca409743931f21759d0b9017d52ad2
+    changeNotes: Fixed rounding option UI input parsing.
   - sha: 59345580b8ce7ca731931c83600726b0cabfb2dd
     changeNotes: Added support for rounding. Refactored the code. Added tests.
   - sha: 5047dd0f7a7a2f988d2ef1d54f8d08f967208764
