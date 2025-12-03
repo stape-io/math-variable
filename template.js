@@ -1,5 +1,6 @@
-const makeNumber = require('makeNumber');
 const getType = require('getType');
+const makeInteger = require('makeInteger');
+const makeNumber = require('makeNumber');
 const Math = require('Math');
 
 /*==============================================================================
@@ -18,7 +19,12 @@ if (!isValidValue(data.number1) || !isValidValue(data.number2)) return undefined
 const number1 = makeNumber(data.number1);
 const number2 = makeNumber(data.number2);
 
-if (getType(number1) !== 'number' || getType(number2) !== 'number' || number1 !== number1 || number2 !== number2) {
+if (
+  getType(number1) !== 'number' ||
+  getType(number2) !== 'number' ||
+  number1 !== number1 ||
+  number2 !== number2
+) {
   return undefined;
 }
 
@@ -42,11 +48,17 @@ switch (data.type) {
 }
 
 if (!!data.roundResult && getType(result) === 'number') {
-  let roundDecimalPlaces = data.roundDecimalPlaces;
-  if (getType(roundDecimalPlaces) !== 'number' || roundDecimalPlaces !== roundDecimalPlaces || roundDecimalPlaces < 0) {
+  let roundDecimalPlaces = isValidValue(data.roundDecimalPlaces)
+    ? makeNumber(data.roundDecimalPlaces)
+    : undefined;
+  if (
+    getType(roundDecimalPlaces) !== 'number' ||
+    roundDecimalPlaces !== roundDecimalPlaces ||
+    roundDecimalPlaces < 0
+  ) {
     roundDecimalPlaces = 2;
   } else {
-    roundDecimalPlaces = makeNumber(roundDecimalPlaces);
+    roundDecimalPlaces = makeInteger(roundDecimalPlaces);
   }
 
   const factor = Math.pow(10, roundDecimalPlaces);

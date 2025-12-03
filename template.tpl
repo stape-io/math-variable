@@ -14,6 +14,9 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "Math",
+  "categories": [
+    "UTILITY"
+  ],
   "description": "It allows you to do simple mathematical operations between two variables.",
   "containerContexts": [
     "SERVER"
@@ -103,8 +106,9 @@ ___TEMPLATE_PARAMETERS___
 
 ___SANDBOXED_JS_FOR_SERVER___
 
-const makeNumber = require('makeNumber');
 const getType = require('getType');
+const makeInteger = require('makeInteger');
+const makeNumber = require('makeNumber');
 const Math = require('Math');
 
 /*==============================================================================
@@ -123,7 +127,12 @@ if (!isValidValue(data.number1) || !isValidValue(data.number2)) return undefined
 const number1 = makeNumber(data.number1);
 const number2 = makeNumber(data.number2);
 
-if (getType(number1) !== 'number' || getType(number2) !== 'number' || number1 !== number1 || number2 !== number2) {
+if (
+  getType(number1) !== 'number' ||
+  getType(number2) !== 'number' ||
+  number1 !== number1 ||
+  number2 !== number2
+) {
   return undefined;
 }
 
@@ -147,12 +156,17 @@ switch (data.type) {
 }
 
 if (!!data.roundResult && getType(result) === 'number') {
-
-  let roundDecimalPlaces = data.roundDecimalPlaces;
-  if (getType(roundDecimalPlaces) !== 'number' || roundDecimalPlaces !== roundDecimalPlaces || roundDecimalPlaces < 0) {
+  let roundDecimalPlaces = isValidValue(data.roundDecimalPlaces)
+    ? makeNumber(data.roundDecimalPlaces)
+    : undefined;
+  if (
+    getType(roundDecimalPlaces) !== 'number' ||
+    roundDecimalPlaces !== roundDecimalPlaces ||
+    roundDecimalPlaces < 0
+  ) {
     roundDecimalPlaces = 2;
   } else {
-    roundDecimalPlaces = makeNumber(roundDecimalPlaces);
+    roundDecimalPlaces = makeInteger(roundDecimalPlaces);
   }
 
   const factor = Math.pow(10, roundDecimalPlaces);
@@ -279,7 +293,7 @@ scenarios:
     mockData.number1 = 2.49;
     mockData.number2 = 0.18;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -290,7 +304,7 @@ scenarios:
     mockData.number1 = 2.49;
     mockData.number2 = 0.18;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -301,7 +315,7 @@ scenarios:
     mockData.number1 = 2.49;
     mockData.number2 = 0.18;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -312,7 +326,7 @@ scenarios:
     mockData.number1 = 2.49;
     mockData.number2 = 0.18;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -323,7 +337,7 @@ scenarios:
     mockData.number1 = 2.5;
     mockData.number2 = 4;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -334,7 +348,7 @@ scenarios:
     mockData.number1 = 2.5;
     mockData.number2 = 4;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -345,7 +359,7 @@ scenarios:
     mockData.number1 = 2.5;
     mockData.number2 = 4;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -356,7 +370,7 @@ scenarios:
     mockData.number1 = 2.5;
     mockData.number2 = 4;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 2;
+    mockData.roundDecimalPlaces = '2';
 
     const variableResult = runCode(mockData);
 
@@ -367,7 +381,7 @@ scenarios:
     mockData.number1 = 2.5;
     mockData.number2 = 4;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 10;
+    mockData.roundDecimalPlaces = '10';
 
     const variableResult = runCode(mockData);
 
@@ -378,7 +392,7 @@ scenarios:
     mockData.number1 = 1.49;
     mockData.number2 = 1;
     mockData.roundResult = true;
-    mockData.roundDecimalPlaces = 0;
+    mockData.roundDecimalPlaces = '0';
 
     const variableResult = runCode(mockData);
 
@@ -402,5 +416,3 @@ setup: |-
 ___NOTES___
 
 Created on 8/15/2024, 12:08:53 PM
-
-
