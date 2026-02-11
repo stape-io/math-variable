@@ -18,8 +18,13 @@ A custom variable template for the GTM Server container that performs basic math
 ## Installation
 
 2 options:
+
 - (Recommended) Add the variable to your GTM Server container from the [GTM Template Gallery](https://tagmanager.google.com/gallery/#/owners/stape-io/templates/math-variable);
 - or import the `template.tpl` file into your GTM Server container under **Templates** → **Variables** → **New** → **3 dots on the upper right corner** → **Import**.
+
+## Useful Resources:
+
+- [Step-by-step guide on how to configure Math variable for Google Tag Manager server container](https://stape.io/blog/math-variable-for-google-tag-manager-server-container)
 
 ## Open Source
 
