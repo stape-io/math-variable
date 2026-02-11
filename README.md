@@ -24,7 +24,7 @@ A custom variable template for the GTM Server container that performs basic math
 
 ## Useful Resources:
 
-- [Step-by-step guide on how to configure Stape MCP Server](https://stape.io/blog/stape-mcp-server-configuration)
+- [Step-by-step guide on how to configure Math variable for Google Tag Manager server container](https://stape.io/blog/math-variable-for-google-tag-manager-server-container)
 
 ## Open Source
 
